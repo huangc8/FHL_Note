@@ -1,56 +1,135 @@
 $(function() { 
-<!-- json part -->
-	var xmlhttp = new XMLHttpRequest();
-	var url = "http://bible.fhl.net/json/qb.php";
-	
-	xmlhttp.onreadystatechange=function() {
-		if (this.readyState == 4 && this.status == 200) {
-			parseResponse(this.responseText);
-		}
-	}
 
-	var request = url + "?chineses=林前&chap=13&sec=0&version=nstrunv&strong=0&gb=0";
-
-	xmlhttp.open("GET", request, true);
-	xmlhttp.send();
-
-	function parseResponse(response) {
-		obj = JSON.parse(response);
-		var count = obj.record_count;
-		document.getElementById("t").innerHTML = obj.record[0].chineses + obj.record[0].chap;
-		for(i=0; i < count; i++){
-			add("button", obj.record[i].chap, obj.record[i].bible_text);
-		}
-		
-		//document.getElementById("ct").innerHTML = response;
-	}
-	
-	function add(typ, nm, val) {
-		var element = document.createElement("input");
-		element.type = typ;
-		element.name = nm;
-		element.value = val;
-		element.onclick = function() {
-			
-		};
-		
-		var pg = document.getElementById("ct");
-		pg.appendChild(element);
-	}
-	
-<!-- json part end -->
-	
-<!-- header part -->
+	// verse
+	var c_verse; // current verse
 	// Hide Header on on scroll down
 	var didScroll;
 	var lastScrollTop = 0;
 	var delta = 5;
 	var navbarHeight = $('header').outerHeight();
+	
+	// start 
+	initial();
 
+	// initialize
+	function initial(){
+		loadVerse();
+	}
+
+	// send JSON request
+	function sendJSONRequest(request, type){
+		var xmlhttp = new XMLHttpRequest();
+		
+		xmlhttp.onreadystatechange=function() {
+			if (this.readyState == 4 && this.status == 200) {
+				parseJSONResponse(this.responseText, type);
+			}
+		}
+
+		xmlhttp.open("GET", request, true);
+		xmlhttp.send();
+	}
+	
+	// parse JSON response
+	function parseJSONResponse(response, type) {
+		switch(type){
+			case "lv": 
+				loadVerse(response);
+				break;
+			default:
+				console.log("parseJSONResponse Error: 404 switch statment");
+		}
+	}
+	
+	// load verse to the main page
+	function loadVerse(response){
+		if(typeof response == "undefined"){
+			var url = "http://bible.fhl.net/json/qb.php";
+			var request = url + "?chineses=林前&chap=13&sec=0&version=nstrunv&strong=0&gb=0";
+			sendJSONRequest(request, "lv");
+		}else{
+			var obj = JSON.parse(response);
+			var count = obj.record_count;
+			document.getElementById("t").innerHTML = obj.record[0].chineses + obj.record[0].chap;
+			for(i=0; i < count; i++){
+				addVerse(obj.record[i].sec, obj.record[i].bible_text);
+			}
+			//document.getElementById("ct").innerHTML = response;
+		}
+	}
+	
+	// add verse to main page paragraph
+	function addVerse(sec, bt){
+		var temp_verse = document.createElement("a");
+		temp_verse.value = sec;
+		temp_verse.innerHTML = bt;
+		temp_verse.style.cssText = 'textDecoration:none;color:black;font-size:x-large;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;';
+		temp_verse.addEventListener('click', function(){
+			clickVerse(this);
+		});
+		document.getElementById("verses").appendChild(temp_verse);
+	}
+	
+	// click on a verse
+	function clickVerse(obj){
+		
+		// different 
+		if(typeof c_verse == "undefined" || c_verse.value != obj.value){
+			if(typeof c_verse != "undefined"){
+				c_verse.style.textDecoration = "none";
+			}
+			showFooter();
+			obj.style.textDecoration = "underline";
+			c_verse = obj;
+		}else{ // same
+			if($('.footer').css('bottom') == "0px"){
+				hideFooter();
+				obj.style.textDecoration = "none";
+			}else{
+				showFooter();
+				obj.style.textDecoration = "underline";
+			}
+		}
+	}
+	
+	// hide the footer bar
+	function hideFooter(){
+		$('.footer').removeClass('footer-show').addClass('footer-hide');
+		if($('.header').css('top') == "0px"){
+			showSideOptions(); // whether show side bar depend on whether header is shown
+		}
+	}
+	
+	// show the footer bar
+	function showFooter(){
+		$('.footer').removeClass('footer-hide').addClass('footer-show');
+		hideSideOptions();
+	}
+	
+	// hide sideOptions bar
+	function hideSideOptions(){
+		$('#sideOptions-central').removeClass('sideOptions-show').addClass('sideOptions-hide');
+		$('#side_01').removeClass('sideOptions-show').addClass('sideOptions-hide');
+		$('#side_02').removeClass('sideOptions-show').addClass('sideOptions-hide');
+		$('#side_03').removeClass('sideOptions-show').addClass('sideOptions-hide');
+		$('#side_04').removeClass('sideOptions-show').addClass('sideOptions-hide');
+	}
+	
+	// show sideOptions bar
+	function showSideOptions(){
+		$('#sideOptions-central').removeClass('sideOptions-hide').addClass('sideOptions-show');
+		$('#side_01').removeClass('sideOptions-hide').addClass('sideOptions-show');
+		$('#side_02').removeClass('sideOptions-hide').addClass('sideOptions-show');
+		$('#side_03').removeClass('sideOptions-hide').addClass('sideOptions-show');
+		$('#side_04').removeClass('sideOptions-hide').addClass('sideOptions-show');	
+	}
+	
+	// scroll function
 	$(window).scroll(function(event){
 		didScroll = true;
 	});
 
+	// for scroll function
 	setInterval(function() {
 		if (didScroll) {
 			hasScrolled();
@@ -58,6 +137,7 @@ $(function() {
 		}
 	}, 250);
 
+	// action react to scroll 
 	function hasScrolled() {
 		var st = $(this).scrollTop();
 		
@@ -70,25 +150,19 @@ $(function() {
 		if (st > lastScrollTop && st > navbarHeight){
 			// Scroll Down
 			$('.header').removeClass('header-show').addClass('header-hide');
-			$('#central').removeClass('link-show').addClass('link-hide');
-			$('#link_01').removeClass('link-show').addClass('link-hide');
-			$('#link_02').removeClass('link-show').addClass('link-hide');
-			$('#link_03').removeClass('link-show').addClass('link-hide');
-			$('#link_04').removeClass('link-show').addClass('link-hide');
+			hideSideOptions();
 			document.getElementById("check").checked = false;
 		} else {
 			// Scroll Up
 			if(st + $(window).height() < $(document).height()) {
 				$('.header').removeClass('header-hide').addClass('header-show');
-				$('#central').removeClass('link-hide').addClass('link-show');
-				$('#link_01').removeClass('link-hide').addClass('link-show');
-				$('#link_02').removeClass('link-hide').addClass('link-show');
-				$('#link_03').removeClass('link-hide').addClass('link-show');
-				$('#link_04').removeClass('link-hide').addClass('link-show');
+				if($('.footer').css('bottom') != "0px"){
+					showSideOptions(); // whether show side bar depend on whether header is shown
+				}
 			}
 		}
 		
 		lastScrollTop = st;
 	}
-	<!-- header part end -->
+
 });
