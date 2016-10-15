@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>FHL Note</title>
+<link href="./css/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="img/ico" href="image/favicon.ico">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="./js/script.js"></script>
+</head>
+<body>
+<div class="gridcontainer">
+    <div class="gridwrapper">
+        <div class="gridbox gridheader">
+			<div class="catalog-header">
+				<a href="index.html" class="catalog-option">取消</a>
+				<h1 id="st" class="catalog-option">Title</h1>
+				<a href="http://google.com" class="catalog-option">歷史</a>
+			</div>
+			<div class="catalog-header" style="top: var(--header-height)">
+				<a href="index.html" class="catalog-option">書本</a>
+				<a href="http://google.com" class="catalog-option">章節</a>
+			</div>
+        </div>
+
+		<div class="gridbox gridmain">
+			<div id="book_list" class="book-list">
+				<li><h1>舊約</h1></li>
+				<li><a id="Ge" name="50" href="#" onclick="bookSelected(this)" class="book">創世記</a></li>
+				<li><a id="Ex" name="40" href="#" onclick="bookSelected(this)" class="book">出埃及記</a></li>
+				<li><a id="Le" name="27" href="#" onclick="bookSelected(this)" class="book">利未記</a></li>
+				<li><a id="Nu" name="36" href="#" onclick="bookSelected(this)" class="book">民數記</a></li>
+				<li><a id="De" name="34" href="#" onclick="bookSelected(this)" class="book">申命記</a></li>
+				<li><a id="Jos" name="24" href="#" onclick="bookSelected(this)" class="book">約書亞記</a></li>
+				<li><a id="Jud" name="21" href="#" onclick="bookSelected(this)" class="book">士師記</a></li>
+				<li><a id="Ru" name="4" href="#" onclick="bookSelected(this)" class="book">路得記</a></li>
+				<li><a id="1Sa" name="31" href="#" onclick="bookSelected(this)" class="book">撒母耳記上</a></li>
+				<li><a id="2Sa" name="24" href="#" onclick="bookSelected(this)" class="book">撒母耳記下</a></li>
+				<li><a id="1Ki" name="22" href="#" onclick="bookSelected(this)" class="book">列王紀上</a></li>
+				<li><a id="2Ki" name="25" href="#" onclick="bookSelected(this)" class="book">列王紀下</a></li>
+				<li><a id="1Ch" name="29" href="#" onclick="bookSelected(this)" class="book">歷代志上</a></li>
+				<li><a id="2Ch" name="36" href="#" onclick="bookSelected(this)" class="book">歷代志下</a></li>
+				<li><a id="Ezr" name="10" href="#" onclick="bookSelected(this)" class="book">以斯拉記</a></li>
+				<li><a id="Ne" name="13" href="#" onclick="bookSelected(this)" class="book">尼希米記</a></li>
+				<li><a id="Es" name="10" href="#" onclick="bookSelected(this)" class="book">以斯帖記</a></li>
+				<li><a id="Job" name="42" href="#" onclick="bookSelected(this)" class="book">約伯記</a></li>
+				<li><a id="Ps" name="150" href="#" onclick="bookSelected(this)" class="book">詩篇</a></li>
+				<li><a id="Pr" name="31" href="#" onclick="bookSelected(this)" class="book">箴言</a></li>
+				<li><a id="Ec" name="12" href="#" onclick="bookSelected(this)" class="book">傳道書</a></li>
+				<li><a id="So" name="8" href="#" onclick="bookSelected(this)" class="book">雅歌</a></li>
+				<li><a id="Isa" name="66" href="#" onclick="bookSelected(this)" class="book">以賽亞書</a></li>
+				<li><a id="Jer" name="52" href="#" onclick="bookSelected(this)" class="book">耶利米書</a></li>
+				<li><a id="La" name="5" href="#" onclick="bookSelected(this)" class="book">耶利米哀歌</a></li>
+				<li><a id="Eze" name="48" href="#" onclick="bookSelected(this)" class="book">以西結書</a></li>
+				<li><a id="Da" name="12" href="#" onclick="bookSelected(this)" class="book">但以理書</a></li>
+				<li><a id="Ho" name="14" href="#" onclick="bookSelected(this)" class="book">何西阿書</a></li>
+				<li><a id="Joe" name="3" href="#" onclick="bookSelected(this)" class="book">約珥書</a></li>
+				<li><a id="Am" name="9" href="#" onclick="bookSelected(this)" class="book">阿摩司書</a></li>
+				<li><a id="Ob" name="1" href="#" onclick="bookSelected(this)" class="book">俄巴底亞書</a></li>
+				<li><a id="Jon" name="4" href="#" onclick="bookSelected(this)" class="book">約拿書</a></li>
+				<li><a id="Mic" name="7" href="#" onclick="bookSelected(this)" class="book">彌迦書</a></li>
+				<li><a id="Na" name="3" href="#" onclick="bookSelected(this)" class="book">那鴻書</a></li>
+				<li><a id="Hab" name="3" href="#" onclick="bookSelected(this)" class="book">哈巴谷書</a></li>
+				<li><a id="Zep" name="3" href="#" onclick="bookSelected(this)" class="book">西番雅書</a></li>
+				<li><a id="Hag" name="2" href="#" onclick="bookSelected(this)" class="book">哈該書</a></li>
+				<li><a id="Zec" name="14" href="#" onclick="bookSelected(this)" class="book">撒迦利亞書</a></li>
+				<li><a id="Mal" name="4" href="#" onclick="bookSelected(this)" class="book">瑪拉基書</a></li>
+				<li><h1>新約</h1></li>
+				<li><a id="Mt" name="28" href="#" onclick="bookSelected(this)" class="book">馬太福音</a></li>
+				<li><a id="Mr" name="16" href="#" onclick="bookSelected(this)" class="book">馬可福音</a></li>
+				<li><a id="Lu" name="24" href="#" onclick="bookSelected(this)" class="book">路加福音</a></li>
+				<li><a id="Joh" name="21" href="#" onclick="bookSelected(this)" class="book">約翰福音</a></li>
+				<li><a id="Ac" name="28" href="#" onclick="bookSelected(this)" class="book">使徒行傳</a></li>
+				<li><a id="Ro" name="16" href="#" onclick="bookSelected(this)" class="book">羅馬書</a></li>
+				<li><a id="1Co" name="16" href="#" onclick="bookSelected(this)" class="book">哥林多前書</a></li>
+				<li><a id="2Co" name="13" href="#" onclick="bookSelected(this)" class="book">哥林多後書</a></li>
+				<li><a id="Ga" name="6" href="#" onclick="bookSelected(this)" class="book">加拉太書</a></li>
+				<li><a id="Eph" name="6" href="#" onclick="bookSelected(this)" class="book">以弗所書</a></li>
+				<li><a id="Php" name="4" href="#" onclick="bookSelected(this)" class="book">腓立比書</a></li>
+				<li><a id="Col" name="4" href="#" onclick="bookSelected(this)" class="book">歌羅西書</a></li>
+				<li><a id="1Th" name="5" href="#" onclick="bookSelected(this)" class="book">帖撒羅尼迦前書</a></li>
+				<li><a id="2Th" name="3" href="#" onclick="bookSelected(this)" class="book">帖撒羅尼迦後書</a></li>
+				<li><a id="1Ti" name="6" href="#" onclick="bookSelected(this)" class="book">提摩太前書</a></li>
+				<li><a id="2Ti" name="4" href="#" onclick="bookSelected(this)" class="book">提摩太後書</a></li>
+				<li><a id="Tit" name="3" href="#" onclick="bookSelected(this)" class="book">提多書</a></li>
+				<li><a id="Phm" name="1" href="#" onclick="bookSelected(this)" class="book">腓利門書</a></li>
+				<li><a id="Heb" name="13" href="#" onclick="bookSelected(this)" class="book">希伯來書</a></li>
+				<li><a id="Jas" name="5" href="#" onclick="bookSelected(this)" class="book">雅各書</a></li>
+				<li><a id="1Pe" name="5" href="#" onclick="bookSelected(this)" class="book">彼得前書</a></li>
+				<li><a id="2Pe" name="3" href="#" onclick="bookSelected(this)" class="book">彼得後書</a></li>
+				<li><a id="1Jo" name="5" href="#" onclick="bookSelected(this)" class="book">約翰壹書</a></li>
+				<li><a id="2Jo" name="1" href="#" onclick="bookSelected(this)" class="book">約翰貳書</a></li>
+				<li><a id="3Jo" name="1" href="#" onclick="bookSelected(this)" class="book">約翰參書</a></li>
+				<li><a id="Jude" name="1" href="#" onclick="bookSelected(this)" class="book">猶大書</a></li>
+				<li><a id="Re" name="22" href="#" onclick="bookSelected(this)" class="book">啟示錄</a></li>
+			</div>
+			<div id="num_list" class="book-list">
+			</div>
+		</div> 
+    </div>
+</div>
+
+</body>
+
+</html>

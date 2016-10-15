@@ -1,22 +1,98 @@
-$(function() { 
+$(document).ready(function() { 
 
+	// overall
+	var c_page;	// current page
+	var s_engs; /// selected engs
+	var s_chap; // selected chap
+	
 	// verse
 	var c_verse; // current verse
+	
 	// Hide Header on on scroll down
 	var didScroll;
 	var lastScrollTop = 0;
 	var delta = 5;
 	var navbarHeight = $('header').outerHeight();
 	
-	// start 
-	initial();
+	start();
+	
+	// scroll function
+	$(window).scroll(function(event){
+		if(c_page == "index.html"){
+			didScroll = true;
+		}
+	});
+	
+	// for scroll function
+	setInterval(function() {
+		if (didScroll) {
+			hasScrolled();
+			didScroll = false;
+		}
+	}, 250);
+	
+});
 
+	function start(){
+		var path = window.location.pathname;
+		var page = path.split("/").pop();
+		c_page = page;
+		
+		switch(page){
+			// main page
+			case "index.html":
+				indexMain();
+			break;
+			// catalog page
+			case "catalog.html":
+				catalogMain();
+			break;
+			default:
+				console.log("Error: no such page");
+		}
+	}
+	
 	// initialize
 	function initial(){
+		
+	}
+	
+	// main function for main page
+	function indexMain(){
 		loadVerse();
 	}
-
-	// send JSON request
+	
+	// main function for catalog page
+	function catalogMain(){
+		
+	}
+	
+	// change between book and section
+	function catalogSelectChange(){
+		console.log("Hi");
+	}
+	
+	// a book is selected
+	function bookSelected(obj){
+		s_chap = obj.id;
+		document.getElementById("book_list").style.display = "none";
+		var n = parseInt(obj.name);
+		var ls = document.getElementById("num_list");
+		for(i = 0; i < n; i++){
+			var temp_num = document.createElement("li");
+			temp_num.innerHTML = i;
+			temp_num.style.cssText = 'textDecoration:none;color:black;font-size:x-large;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;';
+			temp_num.onclick = chapSelected;
+			ls.appendChild(temp_num);
+		}
+	}	
+	
+	// a chapter is selected
+	function chapSelected(obj){
+		
+	}
+	
+	// send JSON request, type: lv-load_verse
 	function sendJSONRequest(request, type){
 		var xmlhttp = new XMLHttpRequest();
 		
@@ -123,19 +199,6 @@ $(function() {
 		$('#side_03').removeClass('sideOptions-hide').addClass('sideOptions-show');
 		$('#side_04').removeClass('sideOptions-hide').addClass('sideOptions-show');	
 	}
-	
-	// scroll function
-	$(window).scroll(function(event){
-		didScroll = true;
-	});
-
-	// for scroll function
-	setInterval(function() {
-		if (didScroll) {
-			hasScrolled();
-			didScroll = false;
-		}
-	}, 250);
 
 	// action react to scroll 
 	function hasScrolled() {
@@ -164,5 +227,3 @@ $(function() {
 		
 		lastScrollTop = st;
 	}
-
-});
