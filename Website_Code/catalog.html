@@ -8,23 +8,22 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" type="img/ico" href="image/favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="./js/script.js"></script>
+<script src="./js/script_catalog.js"></script>
 </head>
 <body>
 <div class="gridcontainer">
     <div class="gridwrapper">
         <div class="gridbox gridheader">
 			<div class="catalog-header">
-				<a href="index.html" class="catalog-option">取消</a>
-				<h1 id="st" class="catalog-option">Title</h1>
+				<a id="cn" class="catalog-option">取消</a>
+				<h1 id="st" class="catalog-option">目錄</h1>
 				<a href="http://google.com" class="catalog-option">歷史</a>
 			</div>
 			<div class="catalog-header" style="top: var(--header-height)">
-				<a href="index.html" class="catalog-option">書本</a>
-				<a href="http://google.com" class="catalog-option">章節</a>
+				<a id="toBook" class="catalog-option">書本</a>
+				<a id="toChap" class="catalog-option">章節</a>
 			</div>
         </div>
-
 		<div class="gridbox gridmain">
 			<div id="book_list" class="book-list">
 				<li><h1>舊約</h1></li>
@@ -101,7 +100,9 @@
 		</div> 
     </div>
 </div>
+<form id="bc">
 
+</form>
 </body>
 
 </html>
