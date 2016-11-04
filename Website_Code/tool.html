@@ -9,7 +9,7 @@
 <link rel="icon" type="img/ico" href="image/favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="./js/script_utility.js"></script>
-<script src="./js/script_catalog.js"></script>
+<script src="./js/script_tool.js"></script>
 </head>
 <body>
 <div class="gridcontainer">
@@ -17,19 +17,23 @@
         <div class="gridbox gridheader">
 			<div class="catalog-header">
 				<a id="cn" class="catalog-option">取消</a>
-				<h1 id="st" class="catalog-option">目錄</h1>
-				<a id="hs" class="catalog-option">歷史</a>
+				<h1 id="t" class="catalog-option">工具</h1>
+				<a id="tol" class="catalog-option">其他</a>
 			</div>
 			<div class="catalog-header" style="top: var(--header-height)">
-				<a id="toBook" class="catalog-option">書本</a>
-				<a id="toChap" class="catalog-option">章節</a>
+				<a id="vt" class="catalog-option" style="color: black">Title</a>
 			</div>
         </div>
 		<div class="gridbox gridmain">
-			<div id="book_list" class="book-list"></div>
-			<div id="num_list" class="book-list" style="display: none;"></div>
-			<div id="hst_list" class="book-list" style="display: none;"></div>
-		</div> 
+			<div class="main" style="margin-top: calc(var(--header-height)*1.8);">
+				<p id="v"></p>
+			</div>
+		</div>
+		<div class="gridbox gridfooter">
+			<div class="tool">
+				<h1>work in process</h1>
+			</div>
+		</div>
     </div>
 </div>
 </body>

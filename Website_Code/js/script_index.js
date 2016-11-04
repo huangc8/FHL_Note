@@ -3,9 +3,11 @@ $(document).ready(function() {
 	// overall
 	var c_engs;	// current book
 	var c_chap; // current chapter	
-		
+	
+	
 	// verse
 	var c_verse; // current verse
+	var c_sec; 	// verse section
 	
 	// Hide Header on on scroll down
 	var didScroll;
@@ -66,6 +68,11 @@ $(document).ready(function() {
 	// initialize
 	function initialize(){
 		document.getElementById("cat").onclick = function() {goCatalogPage()};
+		document.getElementById("t1").onclick = function() {goToolPage()};
+		document.getElementById("t2").onclick = function() {goToolPage()};
+		document.getElementById("t3").onclick = function() {goToolPage()};
+		document.getElementById("t4").onclick = function() {goToolPage()};
+		document.getElementById("t5").onclick = function() {goToolPage()};
 	}
 	
 	// main function for main page
@@ -82,168 +89,6 @@ $(document).ready(function() {
 		loadVerse();
 	}
 	
-	function engsToChineses(book){
-		switch(book){
-			case "Ge": return "創";
-			break;
-			case "Ex": return "出";
-			break;
-			case "Le": return "利";
-			break;
-			case "Nu": return "民";
-			break;
-			case "De": return "申";
-			break;
-			case "Jos": return "書";
-			break;
-			case "Jud": return "士";
-			break;
-			case "Ru": return "得";
-			break;
-			case "1Sa": return "撒上";
-			break;
-			case "2Sa": return "撒下";
-			break;
-			case "1Ki": return "王上";
-			break;
-			case "2Ki": return "王下";
-			break;
-			case "1Ch": return "代上";
-			break; 
-			case "2Ch": return "代下";
-			break;
-			case "Ezr": return "拉";
-			break;
-			case "Ne": return "尼";
-			break;
-			case "Es": return "斯";
-			break;
-			case "Job": return "伯";
-			break;
-			case "Ps": return "詩";
-			break;
-			case "Pr": return "箴";
-			break;
-			case "Ec": return "傳";
-			break;
-			case "So": return "歌";
-			break;
-			case "Isa": return "賽";
-			break;
-			case "Jer": return "耶";
-			break;
-			case "La": return "哀";
-			break;
-			case "Eze": return "結";
-			break;
-			case "Da": return "但";
-			break;
-			case "Ho": return "何";
-			break;
-			case "Joe": return "珥";
-			break;
-			case "Am": return "摩";
-			break;
-			case "Ob": return "俄";
-			break;
-			case "Jon": return "拿";
-			break;
-			case "Mic": return "彌";
-			break;
-			case "Na": return "鴻";
-			break;
-			case "Hab": return "哈";
-			break;
-			case "Zep": return "番";
-			break;
-			case "Hag": return "該";
-			break;
-			case "Zec": return "亞";
-			break;
-			case "Mal": return "瑪";
-			break;
-			case "Mt": return "太";
-			break;
-			case "Mr": return "可";
-			break;
-			case "Lu": return "路";
-			break;
-			case "Joh": return "約";
-			break;
-			case "Ac": return "徒";
-			break;
-			case "Ro": return "羅";
-			break;
-			case "1Co": return "林前";
-			break;
-			case "2Co": return "林後";
-			break;
-			case "Ga": return "加";
-			break;
-			case "Eph": return "弗";
-			break;
-			case "Php": return "腓";
-			break;
-			case "Col": return "西";
-			break;
-			case "1Th": return "帖前";
-			break;
-			case "2Th": return "帖後";
-			break;
-			case "1Ti": return "提前";
-			break;
-			case "2Ti": return "提後";
-			break;
-			case "Tit": return "多";
-			break;
-			case "Phm": return "門";
-			break;
-			case "Heb": return "來";
-			break;
-			case "Jas": return "雅";
-			break;
-			case "1Pe": return "彼前";
-			break;
-			case "2Pe": return "彼後";
-			break;
-			case "1Jo": return "約壹";
-			break;
-			case "2Jo": return "約貳";
-			break;
-			case "3Jo": return "約參";
-			break;
-			case "Jude": return "猶";
-			break;
-			case "Re": return "啟";
-			break;
-		}
-	}
-	
-	// send JSON request, type: lv-load_verse
-	function sendJSONRequest(request, type){
-		var xmlhttp = new XMLHttpRequest();
-		
-		xmlhttp.onreadystatechange=function() {
-			if (this.readyState == 4 && this.status == 200) {
-				parseJSONResponse(this.responseText, type);
-			}
-		}
-
-		xmlhttp.open("GET", request, true);
-		xmlhttp.send();
-	}
-	
-	// parse JSON response
-	function parseJSONResponse(response, type) {
-		switch(type){
-			case "lv": 
-				loadVerse(response);
-				break;
-			default:
-				console.log("parseJSONResponse Error: 404 switch statment");
-		}
-	}
-	
 	// load verse to the main page
 	function loadVerse(response){
 		if(typeof response == "undefined"){
@@ -253,7 +98,7 @@ $(document).ready(function() {
 		}else{
 			var obj = JSON.parse(response);
 			var count = obj.record_count;
-			document.getElementById("t").innerHTML = obj.record[0].chineses + obj.record[0].chap;
+			document.getElementById("t").innerHTML = engsToTitle(c_engs) + " " + c_chap + "章"; 
 			for(i=0; i < count; i++){
 				addVerse(obj.record[i].sec, obj.record[i].bible_text);
 			}
@@ -293,6 +138,8 @@ $(document).ready(function() {
 				obj.style.textDecoration = "underline";
 			}
 		}
+		
+		c_sec = obj.value;
 	}
 	
 	// hide the footer bar
@@ -325,6 +172,11 @@ $(document).ready(function() {
 		$('#side_02').removeClass('sideOptions-hide').addClass('sideOptions-show');
 		$('#side_03').removeClass('sideOptions-hide').addClass('sideOptions-show');
 		$('#side_04').removeClass('sideOptions-hide').addClass('sideOptions-show');	
+	}
+	
+	// go to the tool page
+	function goToolPage(){
+		window.location.href = "tool.html?" + c_engs + "&" + c_chap + "&" + c_sec;
 	}
 	
 	// go to the main page

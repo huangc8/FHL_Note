@@ -351,6 +351,7 @@ h2{
 
     .main {
         padding: 1.0121457489878542510121457489879%;
+		margin-top: calc(var(--header-height)*0.7);
     }
 
     .gridbox {
